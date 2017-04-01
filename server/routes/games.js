@@ -33,7 +33,7 @@ router.get('/:id', usersController.RequireAuth, (req, res, next) => {
 });
 
 // GET - process the delete by user id
-router.get('/delete/:id', usersController.RequireAuth, (req, res, next) => {
+router.get('/delete/:id', usersController.RequireAuth, (req, res) => {
   gamesController.DeleteGame(req, res);
 });
 
