@@ -22,7 +22,7 @@ router.get('/register', (req, res, next)=>{
 });
 
 // GET /logout - process the logout request
-router.get('/logout', (req, res, next)=>{
+router.get('/logout', (req, res)=>{
   usersController.ProcessLogout(req, res);
 });
 
