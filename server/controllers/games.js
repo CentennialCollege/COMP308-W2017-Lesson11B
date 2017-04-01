@@ -33,19 +33,28 @@ module.exports.DisplayAdd = (req, res) => {
 
 // Create a new game and insert it into the db
 module.exports.CreateGame = (req, res) => {
-  let newGame = game({
+  let newGame = {
       "name": req.body.name,
       "cost": req.body.cost,
       "rating": req.body.rating
-    });
+    };
 
-    game.create(newGame, (err) => {
-      if(err) {
-        console.log(err);
-        res.end(err);
-      } else {
-        res.redirect('/games');
-      }
+    let newchild = null;
+
+    firebaseDB.once("value", (snapshot) => {
+      // read the number of children of the games list
+      newchild = snapshot.numChildren();
+
+      // set the value of the new child
+      firebaseDB.child(newchild).set(newGame, (err) =>{
+        if(err) {
+          console.log(err);
+          res.end(err);
+        }
+        else {
+          res.redirect('/games');
+        }
+      });
     });
 }
 

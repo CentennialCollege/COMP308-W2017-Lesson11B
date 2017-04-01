@@ -16,32 +16,32 @@ module.exports.ReadGameList = (req, res) => {
   firebaseDB.orderByKey().once("value", (snapshot)=>{
     res.status(200).json(snapshot.val());
   });
-
-/*
-  game.find( (err, games) => {
-    if (err) {
-      return console.error(err);
-    }
-    else {
-      res.status(200).json(games);
-    }
-  });
-  */
 }
 
 // Create a new game and insert it into the db
 module.exports.CreateGame = (req, res) => {
-  let newGame = game({
+  let newGame = {
       "name": req.body.name,
       "cost": req.body.cost,
       "rating": req.body.rating
-    });
+    };
 
-    game.create(newGame, (err, game) => {
-      if(err) {
-        console.log(err);
-        res.status(500).end(err);
-      }
+    let newchild = null;
+
+    firebaseDB.once("value", (snapshot) => {
+      // read the number of children of the games list
+      newchild = snapshot.numChildren();
+
+      // set the value of the new child
+      firebaseDB.child(newchild).set(newGame, (err) =>{
+        if(err) {
+          console.log(err);
+          res.end(err);
+        }
+        else {
+          res.redirect('/api/games');
+        }
+      });
     });
 }
 
