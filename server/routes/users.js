@@ -14,7 +14,7 @@ router.get('/login', (req, res, next)=>{
 });
 
 // GET /register - render the registration view
-router.get('/register', (req, res, next)=>{
+router.get('/register', (req, res)=>{
    usersController.DisplayRegistration(req, res);
 }).post('/register', (req, res, next)=>{
   // POST / register - process the registration submission
