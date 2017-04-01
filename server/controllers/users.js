@@ -81,7 +81,7 @@ module.exports.ProcessRegistration = (req, res) => {
     displayName: req.body.displayName,
     disabled: false
   })
-  .then((userRecord) => {
+  .then(() => {
     // sign in the user after registration
     firebaseAuth.signInWithEmailAndPassword(req.body.email, req.body.password)
     .then(()=>{
