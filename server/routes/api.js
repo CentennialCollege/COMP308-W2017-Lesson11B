@@ -29,7 +29,7 @@ router.get('/games/add', usersController.RequireAuth, (req, res, next) => {
 });
 
 // GET the Game Details page in order to edit a new Game
-router.get('/games/:id', usersController.RequireAuth, (req, res, next) => {
+router.get('/games/:id', usersController.RequireAuth, (req, res) => {
   apiController.GetGameById(req, res);
 }).post('/games/:id', usersController.RequireAuth, (req, res, next) => {
   // POST - process the information passed from the details form and update the document
