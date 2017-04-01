@@ -38,7 +38,7 @@ module.exports.ProcessLogin = (req, res) => {
   })
   .catch((err) =>{
     let errorCode = err.code;
-    let errorMessage = err.message;
+    //let errorMessage = err.message;
     if(errorCode == 'auth/wrong-password') {
       req.flash('loginMessage', 'Incorrect Password');
     }
@@ -106,7 +106,7 @@ module.exports.ProcessRegistration = (req, res) => {
       req.flash('registerMessage', 'The email address is not valid');
     }
 
-    return res.render('auth/register', {
+    return res.render('auth/register', { 
       title: "Register",
       games: '',
       messages: req.flash('registerMessage'),
