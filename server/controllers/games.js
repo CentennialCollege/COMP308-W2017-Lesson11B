@@ -61,16 +61,20 @@ module.exports.CreateGame = (req, res) => {
 // Displays the Details page to Update a Game
 // find the game by id and populate the form
 module.exports.DisplayEdit = (req, res) => {
-  try {
-      // get a reference to the id from the url
-      let id = mongoose.Types.ObjectId.createFromHexString(req.params.id);
 
-        // find one game by its id
-      game.findById(id, (err, games) => {
+  try {
+      // get the game id from the url
+      let id = req.params.id;
+
+      firebaseDB.child(id).once("value", (snapshot)=>{
+        res.status(200).json(snapshot.val());
+      },
+      (err) => {
         if(err) {
           console.log(err);
-          res.end(error);
-        } else {
+          res.end(err);
+        }
+        else {
           // show the game details view
           res.render('games/details', {
               title: 'Game Details',
