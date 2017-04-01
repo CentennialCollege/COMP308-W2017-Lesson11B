@@ -74,17 +74,19 @@ module.exports.UpdateGame = (req, res) => {
   // get a reference to the id from the url
     let id = req.params.id;
 
-     let updatedGame = game({
-       "_id": id,
+     let updatedGame = {
       "name": req.body.name,
       "cost": req.body.cost,
       "rating": req.body.rating
-    });
+    };
 
-    game.update({_id: id}, updatedGame, (err) => {
+    firebaseDB.child(id).update(updatedGame, (err) => {
       if(err) {
         console.log(err);
         res.end(err);
+      }
+      else {
+        res.redirect('/api/games');
       }
     });
 }
