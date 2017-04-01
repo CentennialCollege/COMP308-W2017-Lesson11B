@@ -6,7 +6,7 @@ let router = express.Router();
 let usersController = require('../controllers/users');
 
 // GET /login - render the login view
-router.get('/login', (req, res, next)=>{
+router.get('/login', (req, res)=>{
   usersController.DisplayLogin(req, res);
   // POST /login - process the login attempt
 }).post('/login', (req, res, next) => {
