@@ -12,17 +12,13 @@ let firebaseAuth = firebase.auth;
 // Read and display the Game List
 module.exports.ReadGameList = (req, res) => {
   // find all games in the games collection
-  game.find( (err, games) => {
-    if (err) {
-      return console.error(err);
-    }
-    else {
-      res.render('games/index', {
+
+firebaseDB.orderByKey().once("value", (snapshot)=>{
+     res.render('games/index', {
         title: 'Games',
-        games: games,
+        games: snapshot.val(),
         displayName: firebaseAuth.currentUser ? firebaseAuth.currentUser.displayName : ''
       });
-    }
   });
 }
 

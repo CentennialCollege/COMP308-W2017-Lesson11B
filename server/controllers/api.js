@@ -1,7 +1,7 @@
 let mongoose = require('mongoose');
 
 // define the game model
-// let game = require('../models/games');
+let game = require('../models/games');
 
 // required for firebase
 let firebase = require('../config/firebase');
@@ -12,21 +12,21 @@ let firebaseAuth = firebase.auth;
 // Read and display the Game List
 module.exports.ReadGameList = (req, res) => {
   // find all games in the games collection
+
+  firebaseDB.orderByKey().once("value", (snapshot)=>{
+    res.status(200).json(snapshot.val());
+  });
+
+/*
   game.find( (err, games) => {
     if (err) {
       return console.error(err);
     }
     else {
       res.status(200).json(games);
-      /*
-      res.status(200).json({
-        title: 'Games',
-        games: games,
-        displayName: req.user.displayName
-      });
-      */
     }
   });
+  */
 }
 
 // Create a new game and insert it into the db
