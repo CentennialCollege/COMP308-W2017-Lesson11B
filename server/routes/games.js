@@ -17,7 +17,7 @@ router.get('/', usersController.RequireAuth, (req, res, next) => {
 });
 
 //  GET the Game Details page in order to add a new Game
-router.get('/add', usersController.RequireAuth, (req, res, next) => {
+router.get('/add', usersController.RequireAuth, (req, res) => {
   gamesController.DisplayAdd(req, res);
 }).post('/add', usersController.RequireAuth, (req, res) => {
   // POST process the Game Details page and create a new Game - CREATE
